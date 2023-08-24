@@ -18,3 +18,5 @@ const data = {
   percent: 0.049,
   seconds: 3.034,
 };
+
+localStorage.setItem('videoplayer - current - time');
