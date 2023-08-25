@@ -1,0 +1,2 @@
+!function(){var e=document.getElementsByClassName("feedback-form");document.addEventListener("input",(function(t){var a={email:e.textContent=t.currentTarget.value,message:e.textContent=t.currentTarget.value};localStorage.setItem("feedback-form-state",JSON.stringify(a))}));var t=localStorage.getItem("feedback-form-state"),a=JSON.parse(t);console.log(localStorage.getItem("feedback-form-state")),console.log(a)}();
+//# sourceMappingURL=03-feedback.d46ed539.js.map
