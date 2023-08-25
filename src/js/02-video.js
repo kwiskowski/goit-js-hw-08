@@ -1,4 +1,4 @@
-const { __esModule } = require('simplelightbox');
+// const { __esModule } = require('simplelightbox');
 
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
