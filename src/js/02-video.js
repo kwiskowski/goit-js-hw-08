@@ -1,3 +1,5 @@
+const { __esModule } = require('simplelightbox');
+
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 
@@ -9,14 +11,28 @@ player.getVideoTitle().then(function (title) {
   console.log('title:', title);
 });
 
-player.on('timeupdate', function (data) {
-  // data is an object containing properties specific to that event
+const updateTime = player.on('timeupdate', function (data) {
+  localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
+  _.throttle(updateTime, [(wait = 1000)]);
+  console.log(updateTime);
 });
 
-const data = {
-  duration: 61.857,
-  percent: 0.049,
-  seconds: 3.034,
-};
+const savedTime = localStorage.getItem('videoplayer-current-time');
+const parsedTime = JSON.parse(savedTime);
 
-localStorage.setItem('videoplayer - current - time');
+const currentTime = Object.values(parsedTime);
+const currentTimeSeconds = currentTime[0];
+
+window.onload = e => {
+  player.setCurrentTime(currentTimeSeconds).catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
+};
