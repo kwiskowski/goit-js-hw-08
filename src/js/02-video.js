@@ -1,4 +1,4 @@
-// const { __esModule } = require('simplelightbox');
+const { throttle } = require('lodash');
 
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
@@ -13,7 +13,7 @@ player.getVideoTitle().then(function (title) {
 
 const updateTime = player.on('timeupdate', function (data) {
   localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
-  _.throttle(updateTime, [(wait = 1000)]);
+  throttle(updateTime, [(wait = 1000)]);
   console.log(updateTime);
 });
 
