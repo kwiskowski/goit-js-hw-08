@@ -18,12 +18,20 @@ textArea.addEventListener('input', function (e) {
 });
 
 const formOutput = {
-  email: localStorage.getItem('email'),
-  message: localStorage.getItem('message'),
+  email: emailOutput,
+  message: messageOutput,
 };
+
+// const formOutput = {
+//   email: localStorage.getItem('email'),
+//   message: localStorage.getItem('message'),
+// };
 
 localStorage.setItem('feedback-form-state', JSON.stringify(formOutput));
 const savedForm = localStorage.getItem('feedback-form-state');
+// console.log(savedForm);
+const parsedForm = JSON.parse(savedForm);
+// console.log(parsedForm);
 
 const emailOutput = localStorage.getItem('email');
 const messageOutput = localStorage.getItem('message');
@@ -37,27 +45,11 @@ const registerForm = document.getElementById('submit_button');
 registerForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
+  event.preventDefault();
   console.log(emailOutput);
   console.log(messageOutput);
-  event.preventDefault();
 }
-// localStorage.clear();
+console.log(localStorage);
+// localStorage.removeItem('feedback-form-state');
 
 // (,,◕　⋏　◕,,)
-
-// const form = document.getElementsByClassName('feedback-form');
-
-// document.addEventListener('input', function (e) {
-//   const emailOutput = (form.textContent = e.currentTarget.value);
-//   const messageOutput = (form.textContent = e.currentTarget.value);
-
-//   const formOutput = {
-//     email: emailOutput,
-//     message: messageOutput,
-//   };
-//   console.log(formOutput);
-//   localStorage.setItem('feedback-form-state', JSON.stringify(formOutput));
-// });
-
-// console.log(localStorage.getItem('feedback-form-state'));
-// console.log(parsedForm);
