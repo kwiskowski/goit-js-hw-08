@@ -3,6 +3,7 @@
 const { throttle } = require('lodash');
 
 // (͡° ͜ʖ ͡°)
+// document.localStorage.getItem_.throttle(func, [(wait = 500)], [(options = {})]);
 
 const input = document.querySelector('input');
 const textArea = document.querySelector('textarea');
@@ -16,6 +17,9 @@ textArea.addEventListener('input', function (e) {
   const messageOutput = (input.textContent = e.currentTarget.value);
   localStorage.setItem('message', messageOutput);
 });
+
+const emailOutput = localStorage.getItem('email');
+const messageOutput = localStorage.getItem('message');
 
 const formOutput = {
   email: emailOutput,
@@ -33,23 +37,22 @@ const savedForm = localStorage.getItem('feedback-form-state');
 const parsedForm = JSON.parse(savedForm);
 // console.log(parsedForm);
 
-const emailOutput = localStorage.getItem('email');
-const messageOutput = localStorage.getItem('message');
-
 window.onload = function () {
   document.getElementById('email_input').value = emailOutput;
   document.getElementById('message_input').value = messageOutput;
 };
 
-const registerForm = document.getElementById('submit_button');
-registerForm.addEventListener('submit', handleSubmit);
-
 function handleSubmit(event) {
   event.preventDefault();
-  console.log(emailOutput);
-  console.log(messageOutput);
+  document.getElementById('email_input').value = '';
+  document.getElementById('message_input').value = '';
+  console.log(savedForm);
+  localStorage.clear();
 }
+
+const registerForm = document.querySelector('.feedback-form');
+registerForm.addEventListener('submit', handleSubmit);
+
 console.log(localStorage);
-// localStorage.removeItem('feedback-form-state');
 
 // (,,◕　⋏　◕,,)
