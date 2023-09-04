@@ -1,27 +1,16 @@
-// Działający kod
 import _ from 'lodash';
+import throttle from 'lodash.throttle';
 
-// (͡° ͜ʖ ͡°)
+const form = document.querySelector('.feedback-form');
 
-const input = document.querySelector('form');
+form.addEventListener('input', throttle(getInputData, 500));
 
-// Trottle start
-const trottedFunction = _.throttle(e => {
-  input.addEventListener('input', trottedFunction);
+const { email, message } = form.elements;
 
-  const emailOutput = e.currentTarget.value;
-  const messageOutput = e.currentTarget.value;
-
-  const formOutput = {
-    email: emailOutput,
-    message: messageOutput,
-  };
-  // const formOutput { email, message } = e.target.elements;
-
-  localStorage.setItem('feedback-form-state', JSON.stringify(formOutput));
-}, 500);
-// Trottle stop
-
+function getInputData(event) {
+  const inputData = { email: email.value, message: message.value };
+  localStorage.setItem('feedback-form-state', JSON.stringify(inputData));
+}
 const savedForm = localStorage.getItem('feedback-form-state');
 const parsedForm = JSON.parse(savedForm);
 
@@ -35,19 +24,11 @@ window.onload = function () {
 
 function handleSubmit(event) {
   event.preventDefault();
-  document.getElementById('email_input').value = '';
-  document.getElementById('message_input').value = '';
   localStorage.getItem('feedback-form-state');
-  console.log(parsedForm);
+  console.log({ email: email.value, message: message.value });
+  form.reset();
   localStorage.removeItem('feedback-form-state');
 }
 
 const registerForm = document.querySelector('.feedback-form');
 registerForm.addEventListener('submit', handleSubmit);
-
-console.log(
-  'feedback-form-state:',
-  localStorage.getItem('feedback-form-state')
-);
-
-// (,,◕　⋏　◕,,)
