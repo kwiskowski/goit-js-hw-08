@@ -1,22 +1,26 @@
 // Działający kod
 import _ from 'lodash';
-const trottled = _.throttle(InputEvent, 500);
 
 // (͡° ͜ʖ ͡°)
 
-const input = document.querySelector('input');
+const input = document.querySelector('form');
 
-input.addEventListener('input', e => {
-  const emailOutput = (input.textContent = e.currentTarget.value);
-  const messageOutput = (input.textContent = e.currentTarget.value);
+// Trottle start
+const trottedFunction = _.throttle(e => {
+  input.addEventListener('input', trottedFunction);
+
+  const emailOutput = e.currentTarget.value;
+  const messageOutput = e.currentTarget.value;
 
   const formOutput = {
     email: emailOutput,
     message: messageOutput,
   };
+  // const formOutput { email, message } = e.target.elements;
 
   localStorage.setItem('feedback-form-state', JSON.stringify(formOutput));
-});
+}, 500);
+// Trottle stop
 
 const savedForm = localStorage.getItem('feedback-form-state');
 const parsedForm = JSON.parse(savedForm);

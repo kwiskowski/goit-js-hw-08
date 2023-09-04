@@ -24,18 +24,6 @@ window.onload = e => {
   if (localStorage.getItem('videoplayer-current-time') !== null) {
     const currentTime = Object.values(parsedTime);
     const currentTimeSeconds = currentTime[0];
-    player.setCurrentTime(currentTimeSeconds).catch(function (error) {
-      switch (error.name) {
-        case 'RangeError':
-          // the time was less than 0 or greater than the video’s duration
-          break;
-
-        default:
-          // some other error occurred
-          break;
-      }
-    });
-  } else {
-    return;
+    player.setCurrentTime(currentTimeSeconds);
   }
 };
